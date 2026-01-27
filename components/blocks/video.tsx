@@ -18,20 +18,24 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT TEXT */}
-          <div>
-            <h2
-              className="text-4xl font-semibold"
-              data-tina-field={tinaField(data, "title")}
-            >
-              {data.title}
-            </h2>
+          <div className={data.textColor || ""}>
+            {data.title && (
+              <h2
+                className="text-4xl font-semibold"
+                data-tina-field={tinaField(data, "title")}
+              >
+                {data.title}
+              </h2>
+            )}
 
-            <p
-              className="mt-4 text-lg"
-              data-tina-field={tinaField(data, "description")}
-            >
-              {data.description}
-            </p>
+            {data.description && (
+              <p
+                className="mt-4 text-lg"
+                data-tina-field={tinaField(data, "description")}
+              >
+                {data.description}
+              </p>
+            )}
 
             {data.buttonLabel && data.buttonLink && (
               <a
@@ -44,7 +48,6 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
             )}
           </div>
 
-          {/* RIGHT VIDEO */}
           {/* RIGHT VIDEO */}
           <div className="aspect-video w-full rounded-2xl overflow-hidden">
             <ReactPlayer
@@ -69,15 +72,29 @@ export const videoBlockSchema: Template = {
   ui: {
     previewSrc: "/blocks/video.png",
     defaultItem: {
-      title: "Watch this video",
-      description: "This is a short description about the video.",
-      buttonLabel: "Watch Now",
+      title: "Video Section",
+      description: "This is the description for the video section.",
+      buttonLabel: "Learn More",
       buttonLink: "/",
+      textColor: "text-gray-900", // default text color
       url: "https://www.youtube.com/watch?v=j8egYW7Jpgk",
     },
   },
   fields: [
     sectionBlockSchemaField as any,
+    {
+      type: "string",
+      label: "Text Color",
+      name: "textColor",
+      options: [
+        { label: "Default (Black)", value: "text-gray-900" },
+        { label: "White", value: "text-white" },
+        { label: "Primary", value: "text-primary" },
+        { label: "Secondary", value: "text-secondary" },
+        { label: "Red", value: "text-red-500" },
+        { label: "Blue", value: "text-blue-500" },
+      ],
+    },
     {
       type: "string",
       label: "Title",
@@ -100,7 +117,7 @@ export const videoBlockSchema: Template = {
     },
     {
       type: "string",
-      label: "Url",
+      label: "Video URL",
       name: "url",
     },
     {
