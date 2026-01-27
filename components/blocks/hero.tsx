@@ -1,5 +1,4 @@
 "use client";
-
 import { iconSchema } from "@/tina/fields/icon";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,23 +46,24 @@ const transitionVariants = {
 };
 
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
+  // Split headline by newline into multiple lines
+  const lines = (data.headline || "").split("\n").filter(Boolean);
+
   return (
     <Section background={data.background!}>
       <div className="mx-auto max-w-6xl px-6 min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
           {/* LEFT */}
           <div className="text-left">
-            {data.headline && (
-              <div data-tina-field={tinaField(data, "headline")}>
-                <TextEffect
-                  preset="fade-in-blur"
-                  speedSegment={0.3}
-                  as="h1"
-                  className="mt-8 text-balance text-6xl md:text-7xl xl:text-[5.25rem] font-bold"
-                >
-                  {data.headline!}
-                </TextEffect>
-              </div>
+            {lines.length > 0 && (
+              <h1 className="mt-8 text-balance text-6xl md:text-7xl xl:text-[5.25rem] font-bold">
+                {lines.map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    <span>{line}</span>
+                    {idx !== lines.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </h1>
             )}
 
             {data.tagline && (
@@ -108,14 +108,14 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
             </AnimatedGroup>
           </div>
 
-          {/* RIGHT (Image) */}
+          {/* RIGHT (Full height image) */}
           {data.image && (
             <AnimatedGroup variants={transitionVariants}>
               <div
                 className="relative w-full max-w-lg lg:max-w-none"
                 data-tina-field={tinaField(data, "image")}
               >
-                <div className="relative overflow-hidden rounded-2xl">
+                <div className="relative overflow-hidden rounded-2xl border">
                   <ImageBlock image={data.image} />
                 </div>
               </div>
@@ -175,9 +175,12 @@ export const heroBlockSchema: Template = {
   ui: {
     previewSrc: "/blocks/hero.png",
     defaultItem: {
-      tagline: "Here's some text above the other text",
-      headline: "This Big Text is Totally Awesome",
-      text: "Phasellus scelerisque, libero eu finibus rutrum, risus risus accumsan libero, nec molestie urna dui a leo.",
+      headline: "Your Health,\nOur Priority",
+      tagline: "A short description goes here.",
+      actions: [
+        { label: "Get Started", type: "button", link: "/" },
+        { label: "Learn More", type: "link", link: "/" },
+      ],
     },
   },
   fields: [
@@ -186,6 +189,7 @@ export const heroBlockSchema: Template = {
       type: "string",
       label: "Headline",
       name: "headline",
+      description: "Use Enter to split into multiple lines",
     },
     {
       type: "string",
