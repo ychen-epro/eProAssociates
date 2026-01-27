@@ -5,21 +5,20 @@ import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import { Section } from "../layout/section";
 import { sectionBlockSchemaField } from "../layout/section";
-import {
-  PageBlocksServices,
-  PageBlocksServicesItems,
-} from "@/tina/__generated__/types";
+import { PageBlocksServices } from "@/tina/__generated__/types";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Services = ({ data }: { data: PageBlocksServices }) => {
+  const textColor = data.textColor || "text-black"; // default text color
+
   return (
     <Section background={data.background!}>
-      <div className={`mx-auto max-w-6xl px-6 py-16 ${data.textColor || ""}`}>
+      <div className={`mx-auto max-w-6xl px-6 py-16 ${textColor}`}>
         <div className="text-center">
           <h2
             data-tina-field={tinaField(data, "title")}
-            className="text-4xl font-semibold"
+            className="text-5xl font-bold"
           >
             {data.title}
           </h2>
@@ -30,7 +29,7 @@ export const Services = ({ data }: { data: PageBlocksServices }) => {
             <Link
               key={index}
               href={item!.link!}
-              className="group block rounded-xl border p-6 hover:shadow-lg transition"
+              className="group block rounded-xl border p-6 hover:shadow-lg transition text-center"
               data-tina-field={tinaField(item)}
             >
               <div className="flex justify-center">
@@ -46,7 +45,7 @@ export const Services = ({ data }: { data: PageBlocksServices }) => {
                 </div>
               </div>
 
-              <h3 className="mt-6 text-xl font-semibold">{item!.title}</h3>
+              <h3 className="mt-6 text-xl font-bold">{item!.title}</h3>
             </Link>
           ))}
         </div>
@@ -62,7 +61,7 @@ export const servicesBlockSchema: Template = {
     previewSrc: "/blocks/services.png",
     defaultItem: {
       title: "Our Services",
-      textColor: "text-default",
+      textColor: "text-black",
       items: [
         {
           title: "Service 1",
@@ -94,10 +93,13 @@ export const servicesBlockSchema: Template = {
       label: "Text Color",
       name: "textColor",
       options: [
-        { label: "Default", value: "text-default" },
-        { label: "Black", value: "text-black" },
+        { label: "Default (Black)", value: "text-black" },
         { label: "White", value: "text-white" },
-        { label: "Primary", value: "text-[rgba(20,32,67,1)]" },
+        { label: "Primary", value: "text-primary" },
+        { label: "Secondary", value: "text-secondary" },
+        { label: "Red", value: "text-red-500" },
+        { label: "Blue", value: "text-blue-500" },
+        { label: "Green", value: "text-green-500" },
       ],
     },
     {
