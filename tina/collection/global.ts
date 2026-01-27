@@ -19,6 +19,11 @@ const Global: Collection = {
       fields: [
         iconSchema as any,
         {
+          type: "image",
+          label: "Logo",
+          name: "logo",
+        },
+        {
           type: "string",
           label: "Name",
           name: "name",
@@ -73,7 +78,7 @@ const Global: Collection = {
           list: true,
           ui: {
             itemProps: (item) => {
-              return { label: item?.icon?.name || 'undefined' };
+              return { label: item?.icon?.name || "undefined" };
             },
           },
           fields: [

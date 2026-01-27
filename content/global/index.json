@@ -5,6 +5,7 @@
       "color": "blue",
       "style": "float"
     },
+    "logo": "/uploads/epro-logo.webp",
     "name": "ePro Associates",
     "color": "default",
     "nav": [
@@ -19,6 +20,10 @@
       {
         "href": "/posts",
         "label": "Blog"
+      },
+      {
+        "href": "home",
+        "label": "Services"
       }
     ]
   },
