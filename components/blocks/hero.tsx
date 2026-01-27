@@ -46,7 +46,6 @@ const transitionVariants = {
 };
 
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
-  // Split headline by newline into multiple lines
   const lines = (data.headline || "").split("\n").filter(Boolean);
 
   return (
@@ -54,7 +53,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
       <div className="mx-auto max-w-6xl px-6 min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
           {/* LEFT */}
-          <div className="text-left">
+          <div className={data.textColor || "text-black"}>
             {lines.length > 0 && (
               <h1 className="mt-8 text-balance text-6xl md:text-7xl xl:text-[5.25rem] font-bold">
                 {lines.map((line, idx) => (
@@ -90,13 +89,15 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                   <div
                     key={action!.label}
                     data-tina-field={tinaField(action)}
-                    className="bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5"
+                    className="rounded-[calc(var(--radius-xl)+0.125rem)]"
                   >
                     <Button
                       asChild
                       size="lg"
                       variant={action!.type === "link" ? "ghost" : "default"}
-                      className="rounded-xl px-5 text-base"
+                      className={`rounded-xl px-5 text-base ${
+                        action?.buttonBgColor || "bg-primary"
+                      } ${action?.buttonTextColor || "text-white"}`}
                     >
                       <Link href={action!.link!}>
                         {action?.icon && <Icon data={action?.icon} />}
@@ -108,7 +109,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
             </AnimatedGroup>
           </div>
 
-          {/* RIGHT (Full height image) */}
+          {/* RIGHT (Full height image/video) */}
           {data.image && (
             <AnimatedGroup variants={transitionVariants}>
               <div
@@ -177,9 +178,22 @@ export const heroBlockSchema: Template = {
     defaultItem: {
       headline: "Your Health,\nOur Priority",
       tagline: "A short description goes here.",
+      textColor: "text-black",
       actions: [
-        { label: "Get Started", type: "button", link: "/" },
-        { label: "Learn More", type: "link", link: "/" },
+        {
+          label: "Get Started",
+          type: "button",
+          link: "/",
+          buttonBgColor: "bg-primary",
+          buttonTextColor: "text-white",
+        },
+        {
+          label: "Learn More",
+          type: "link",
+          link: "/",
+          buttonBgColor: "bg-secondary",
+          buttonTextColor: "text-white",
+        },
       ],
     },
   },
@@ -197,6 +211,18 @@ export const heroBlockSchema: Template = {
       name: "tagline",
     },
     {
+      type: "string",
+      label: "Text Color",
+      name: "textColor",
+      ui: { component: "select" },
+      options: [
+        { label: "Black", value: "text-black" },
+        { label: "White", value: "text-white" },
+        { label: "Primary", value: "text-primary" },
+        { label: "Secondary", value: "text-secondary" },
+      ],
+    },
+    {
       label: "Actions",
       name: "actions",
       type: "object",
@@ -211,15 +237,13 @@ export const heroBlockSchema: Template = {
             style: "float",
           },
           link: "/",
+          buttonBgColor: "bg-primary",
+          buttonTextColor: "text-white",
         },
         itemProps: (item) => ({ label: item.label }),
       },
       fields: [
-        {
-          label: "Label",
-          name: "label",
-          type: "string",
-        },
+        { label: "Label", name: "label", type: "string" },
         {
           label: "Type",
           name: "type",
@@ -230,10 +254,30 @@ export const heroBlockSchema: Template = {
           ],
         },
         iconSchema as any,
+        { label: "Link", name: "link", type: "string" },
         {
-          label: "Link",
-          name: "link",
+          label: "Button Background Color",
+          name: "buttonBgColor",
           type: "string",
+          ui: { component: "select" },
+          options: [
+            { label: "Primary", value: "bg-primary" },
+            { label: "Secondary", value: "bg-secondary" },
+            { label: "White", value: "bg-white" },
+            { label: "Black", value: "bg-black" },
+          ],
+        },
+        {
+          label: "Button Text Color",
+          name: "buttonTextColor",
+          type: "string",
+          ui: { component: "select" },
+          options: [
+            { label: "White", value: "text-white" },
+            { label: "Black", value: "text-black" },
+            { label: "Primary", value: "text-primary" },
+            { label: "Secondary", value: "text-secondary" },
+          ],
         },
       ],
     },
@@ -242,16 +286,8 @@ export const heroBlockSchema: Template = {
       label: "Image",
       name: "image",
       fields: [
-        {
-          name: "src",
-          label: "Image Source",
-          type: "image",
-        },
-        {
-          name: "alt",
-          label: "Alt Text",
-          type: "string",
-        },
+        { name: "src", label: "Image Source", type: "image" },
+        { name: "alt", label: "Alt Text", type: "string" },
         {
           name: "videoUrl",
           label: "Video URL",
