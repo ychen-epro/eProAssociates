@@ -26,7 +26,8 @@ export const Section: React.FC<SectionProps> = ({
 
 export const tailwindBackgroundOptions = [
   { label: "Default", value: "bg-default" },
-  { label: "Primary", value: "bg-[rgba(20,32,67,1)]" },
+  { label: "Primary dark-blue", value: "bg-[rgba(20,32,67,1)]" },
+  { label: "Secondary light-blue", value: "bg-[rgba(65,134,243,1)]" },
   { label: "White", value: "bg-white/80" },
   { label: "Gray", value: "bg-gray-50/80" },
   { label: "Zinc", value: "bg-zinc-50" },
