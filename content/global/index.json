@@ -23,7 +23,13 @@
       },
       {
         "href": "home",
-        "label": "Services"
+        "label": "Services",
+        "children": [
+          {
+            "href": "service1",
+            "label": "Service1"
+          }
+        ]
       }
     ]
   },

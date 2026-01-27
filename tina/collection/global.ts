@@ -1,7 +1,6 @@
 import type { Collection } from "tinacms";
 import { ColorPickerInput } from "../fields/color";
 import { iconSchema } from "../fields/icon";
-import { icon } from "mermaid/dist/rendering-util/rendering-elements/shapes/icon.js";
 
 const Global: Collection = {
   label: "Global",
@@ -43,11 +42,9 @@ const Global: Collection = {
           name: "nav",
           list: true,
           ui: {
-            itemProps: (item) => {
-              return { label: item?.label };
-            },
+            itemProps: (item) => ({ label: item?.label }),
             defaultItem: {
-              href: "home",
+              href: "/",
               label: "Home",
             },
           },
@@ -61,6 +58,27 @@ const Global: Collection = {
               type: "string",
               label: "Label",
               name: "label",
+            },
+            {
+              type: "object",
+              label: "Dropdown Items",
+              name: "children",
+              list: true,
+              ui: {
+                itemProps: (item) => ({ label: item?.label }),
+              },
+              fields: [
+                {
+                  type: "string",
+                  label: "Link",
+                  name: "href",
+                },
+                {
+                  type: "string",
+                  label: "Label",
+                  name: "label",
+                },
+              ],
             },
           ],
         },
@@ -77,9 +95,9 @@ const Global: Collection = {
           name: "social",
           list: true,
           ui: {
-            itemProps: (item) => {
-              return { label: item?.icon?.name || "undefined" };
-            },
+            itemProps: (item) => ({
+              label: item?.icon?.name || "undefined",
+            }),
           },
           fields: [
             iconSchema as any,
@@ -96,7 +114,6 @@ const Global: Collection = {
       type: "object",
       label: "Theme",
       name: "theme",
-      // @ts-ignore
       fields: [
         {
           type: "string",
@@ -111,18 +128,9 @@ const Global: Collection = {
           name: "font",
           label: "Font Family",
           options: [
-            {
-              label: "System Sans",
-              value: "sans",
-            },
-            {
-              label: "Nunito",
-              value: "nunito",
-            },
-            {
-              label: "Lato",
-              value: "lato",
-            },
+            { label: "System Sans", value: "sans" },
+            { label: "Nunito", value: "nunito" },
+            { label: "Lato", value: "lato" },
           ],
         },
         {
@@ -130,18 +138,9 @@ const Global: Collection = {
           name: "darkMode",
           label: "Dark Mode",
           options: [
-            {
-              label: "System",
-              value: "system",
-            },
-            {
-              label: "Light",
-              value: "light",
-            },
-            {
-              label: "Dark",
-              value: "dark",
-            },
+            { label: "System", value: "system" },
+            { label: "Light", value: "light" },
+            { label: "Dark", value: "dark" },
           ],
         },
       ],
