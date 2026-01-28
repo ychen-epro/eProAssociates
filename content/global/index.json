@@ -37,7 +37,10 @@
             "href": "https://www.eproassociates.com/dental",
             "label": "Dental Plans"
           },
-          {}
+          {
+            "href": "https://www.eproassociates.com/en/life",
+            "label": "Life Insurance"
+          }
         ]
       }
     ]
