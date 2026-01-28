@@ -33,7 +33,10 @@
             "href": "https://www.healthsherpa.com/?_agent_id=derrick-zhang",
             "label": "Individual Plans"
           },
-          {},
+          {
+            "href": "https://www.eproassociates.com/dental",
+            "label": "Dental"
+          },
           {}
         ]
       }
