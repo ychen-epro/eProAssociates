@@ -28,7 +28,13 @@
           {
             "href": "https://www.healthsherpa.com/?_agent_id=derrick-zhang",
             "label": "Medicare Plans"
-          }
+          },
+          {
+            "href": "https://www.healthsherpa.com/?_agent_id=derrick-zhang",
+            "label": "Individual Plans"
+          },
+          {},
+          {}
         ]
       }
     ]
