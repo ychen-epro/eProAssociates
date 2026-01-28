@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const Services = ({ data }: { data: PageBlocksServices }) => {
-  const textColor = data.textColor || "text-black"; // default text color
+  const textColor = data.textColor || "text-black";
 
   return (
     <Section background={data.background!}>
@@ -24,12 +24,12 @@ export const Services = ({ data }: { data: PageBlocksServices }) => {
           </h2>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
           {data.items?.map((item, index) => (
             <Link
               key={index}
               href={item!.link!}
-              className="group block rounded-xl border p-6 hover:shadow-lg transition text-center"
+              className="group block rounded-xl border p-6 text-center transition hover:shadow-lg"
               data-tina-field={tinaField(item)}
             >
               <div className="flex justify-center">
@@ -67,16 +67,19 @@ export const servicesBlockSchema: Template = {
           title: "Service 1",
           link: "/",
           image: "/uploads/sample.jpg",
+          imageAlt: "Service 1 image",
         },
         {
           title: "Service 2",
           link: "/",
           image: "/uploads/sample.jpg",
+          imageAlt: "Service 2 image",
         },
         {
           title: "Service 3",
           link: "/",
           image: "/uploads/sample.jpg",
+          imageAlt: "Service 3 image",
         },
       ],
     },
@@ -125,6 +128,11 @@ export const servicesBlockSchema: Template = {
           type: "image",
           label: "Image",
           name: "image",
+        },
+        {
+          type: "string",
+          label: "Image Alt Text",
+          name: "imageAlt",
         },
       ],
     },
