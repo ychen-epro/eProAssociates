@@ -25,8 +25,8 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Tina",
-  description: "Tina Cloud Starter",
+  title: "ePro Associates",
+  description: "Health Insurance Broker, ACA, Medicare, Group Plans",
 };
 
 export default function RootLayout({
@@ -35,7 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(fontSans.variable, nunito.variable, lato.variable)}>
+    <html
+      lang="en"
+      className={cn(fontSans.variable, nunito.variable, lato.variable)}
+    >
       <body className="min-h-screen bg-background font-sans antialiased">
         <VideoDialogProvider>
           {children}
