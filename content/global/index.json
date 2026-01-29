@@ -80,7 +80,12 @@
         },
         "url": "https://x.com/TinaCMS"
       }
-    ]
+    ],
+    "copyright": "© 2026, ePro Associates. All Rights Reserved by Eproassociates.com Terms & Privacy Policy",
+    "legal": {
+      "terms": "https://www.eproassociates.com/privacy-policy",
+      "privacy": "https://www.eproassociates.com/privacy-policy"
+    }
   },
   "theme": {
     "color": "blue",
