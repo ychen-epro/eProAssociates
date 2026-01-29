@@ -91,7 +91,28 @@ const Global: Collection = {
             { type: "string", label: "Url", name: "url" },
           ],
         },
-        { type: "string", label: "Copyright", name: "copyright" },
+        {
+          type: "string",
+          label: "Copyright",
+          name: "copyright",
+        },
+        {
+          type: "object",
+          label: "Legal Links",
+          name: "legal",
+          fields: [
+            {
+              type: "string",
+              label: "Terms & Conditions URL",
+              name: "terms",
+            },
+            {
+              type: "string",
+              label: "Privacy Policy URL",
+              name: "privacy",
+            },
+          ],
+        },
       ],
     },
     {

@@ -12,15 +12,15 @@ export const Footer = () => {
   if (!header || !footer) return null;
 
   return (
-    <footer className="bg-white pt-20 dark:bg-transparent border-t">
+    <footer className="bg-white dark:bg-transparent border-t pt-20">
       <div className="mx-auto max-w-6xl px-6">
         {/* Main Footer Grid */}
-        <div className="grid gap-10 pb-12 md:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-4 pb-12">
           {/* Company Info */}
           <div className="space-y-4">
             <Link
               href="/"
-              aria-label="go home"
+              aria-label="Go home"
               className="inline-flex items-center"
             >
               {header.logo ? (
@@ -37,7 +37,6 @@ export const Footer = () => {
                 />
               )}
             </Link>
-
             <div className="text-sm text-muted-foreground space-y-1">
               {footer.phone && <p>{footer.phone}</p>}
               {footer.email && (
@@ -54,7 +53,9 @@ export const Footer = () => {
           {/* Footer Columns */}
           {footer.columns?.map((column, i) => (
             <div key={i}>
-              <h4 className="mb-4 text-sm font-semibold">{column.title}</h4>
+              {column.title && (
+                <h4 className="mb-4 text-sm font-semibold">{column.title}</h4>
+              )}
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {column.links?.map(
                   (link, idx) =>
@@ -88,6 +89,7 @@ export const Footer = () => {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={link.icon.name ?? "Social link"}
                       >
                         <Icon
                           data={{ ...link.icon, size: "small" }}
@@ -104,7 +106,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t py-6 text-center text-sm text-muted-foreground md:flex md:justify-between md:text-left">
+        <div className="border-t py-6 text-sm text-muted-foreground md:flex md:justify-between md:text-left">
           <p>
             {footer.copyright ??
               `© ${new Date().getFullYear()}, ePro Associates. All Rights Reserved`}
