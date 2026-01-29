@@ -50,6 +50,27 @@
     ]
   },
   "footer": {
+    "phone": "(215) 825-8435",
+    "email": "support@eproassociates.com",
+    "columns": [
+      {
+        "title": "About",
+        "links": [
+          {
+            "label": "Medicare Test"
+          }
+        ]
+      },
+      {
+        "title": "Services",
+        "links": [
+          {
+            "label": "Test",
+            "href": "/home"
+          }
+        ]
+      }
+    ],
     "social": [
       {
         "icon": {

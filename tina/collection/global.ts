@@ -7,9 +7,7 @@ const Global: Collection = {
   name: "global",
   path: "content/global",
   format: "json",
-  ui: {
-    global: true,
-  },
+  ui: { global: true },
   fields: [
     {
       type: "object",
@@ -17,16 +15,8 @@ const Global: Collection = {
       name: "header",
       fields: [
         iconSchema as any,
-        {
-          type: "image",
-          label: "Logo",
-          name: "logo",
-        },
-        {
-          type: "string",
-          label: "Name",
-          name: "name",
-        },
+        { type: "image", label: "Logo", name: "logo" },
+        { type: "string", label: "Name", name: "name" },
         {
           type: "string",
           label: "Color",
@@ -41,43 +31,19 @@ const Global: Collection = {
           label: "Nav Links",
           name: "nav",
           list: true,
-          ui: {
-            itemProps: (item) => ({ label: item?.label }),
-            defaultItem: {
-              href: "/",
-              label: "Home",
-            },
-          },
+          ui: { itemProps: (item) => ({ label: item?.label }) },
           fields: [
-            {
-              type: "string",
-              label: "Link",
-              name: "href",
-            },
-            {
-              type: "string",
-              label: "Label",
-              name: "label",
-            },
+            { type: "string", label: "Link", name: "href" },
+            { type: "string", label: "Label", name: "label" },
             {
               type: "object",
               label: "Dropdown Items",
               name: "children",
               list: true,
-              ui: {
-                itemProps: (item) => ({ label: item?.label }),
-              },
+              ui: { itemProps: (item) => ({ label: item?.label }) },
               fields: [
-                {
-                  type: "string",
-                  label: "Link",
-                  name: "href",
-                },
-                {
-                  type: "string",
-                  label: "Label",
-                  name: "label",
-                },
+                { type: "string", label: "Link", name: "href" },
+                { type: "string", label: "Label", name: "label" },
               ],
             },
           ],
@@ -89,25 +55,43 @@ const Global: Collection = {
       label: "Footer",
       name: "footer",
       fields: [
+        { type: "string", label: "Phone", name: "phone" },
+        { type: "string", label: "Email", name: "email" },
+        {
+          type: "object",
+          label: "Columns",
+          name: "columns",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.title || "Footer Column" }),
+          },
+          fields: [
+            { type: "string", label: "Title", name: "title" },
+            {
+              type: "object",
+              label: "Links",
+              name: "links",
+              list: true,
+              ui: { itemProps: (item) => ({ label: item?.label || "Link" }) },
+              fields: [
+                { type: "string", label: "Label", name: "label" },
+                { type: "string", label: "Href", name: "href" },
+              ],
+            },
+          ],
+        },
         {
           type: "object",
           label: "Social Links",
           name: "social",
           list: true,
-          ui: {
-            itemProps: (item) => ({
-              label: item?.icon?.name || "undefined",
-            }),
-          },
+          ui: { itemProps: (item) => ({ label: item?.icon?.name || "Icon" }) },
           fields: [
             iconSchema as any,
-            {
-              type: "string",
-              label: "Url",
-              name: "url",
-            },
+            { type: "string", label: "Url", name: "url" },
           ],
         },
+        { type: "string", label: "Copyright", name: "copyright" },
       ],
     },
     {
@@ -119,14 +103,12 @@ const Global: Collection = {
           type: "string",
           label: "Primary Color",
           name: "color",
-          ui: {
-            component: ColorPickerInput,
-          },
+          ui: { component: ColorPickerInput },
         },
         {
           type: "string",
-          name: "font",
           label: "Font Family",
+          name: "font",
           options: [
             { label: "System Sans", value: "sans" },
             { label: "Nunito", value: "nunito" },
@@ -135,8 +117,8 @@ const Global: Collection = {
         },
         {
           type: "string",
-          name: "darkMode",
           label: "Dark Mode",
+          name: "darkMode",
           options: [
             { label: "System", value: "system" },
             { label: "Light", value: "light" },
