@@ -5,11 +5,15 @@ import Link from "next/link";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   const { globalSettings } = useLayout();
-  const { header, footer, theme } = globalSettings!;
+
+  const header = globalSettings?.header;
+  const footer = globalSettings?.footer;
 
   if (!header || !footer) return null;
+
+  const parentColor = header.color ?? "#000";
 
   return (
     <footer className="bg-white dark:bg-transparent border-t pt-20">
@@ -29,14 +33,11 @@ export const Footer = () => {
                   alt={header.name ?? "ePro Associates"}
                   className="h-14 w-auto"
                 />
-              ) : (
-                <Icon
-                  parentColor={header.color!}
-                  theme={theme}
-                  data={header.icon}
-                />
-              )}
+              ) : header.icon ? (
+                <Icon parentColor={parentColor} data={header.icon} />
+              ) : null}
             </Link>
+
             <div className="text-sm text-muted-foreground space-y-1">
               {footer.phone && <p>{footer.phone}</p>}
               {footer.email && (
@@ -51,16 +52,20 @@ export const Footer = () => {
           </div>
 
           {/* Footer Columns */}
-          {footer.columns?.map((column, i) => (
-            <div key={i}>
-              {column.title && (
-                <h4 className="mb-4 text-sm font-semibold">{column.title}</h4>
-              )}
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                {column.links?.map(
-                  (link, idx) =>
-                    link?.label &&
-                    link?.href && (
+          {footer.columns?.map((column, i) => {
+            if (!column) return null;
+
+            return (
+              <div key={i}>
+                {column.title && (
+                  <h4 className="mb-4 text-sm font-semibold">{column.title}</h4>
+                )}
+
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  {column.links?.map((link, idx) => {
+                    if (!link || !link.label || !link.href) return null;
+
+                    return (
                       <li key={idx}>
                         <Link
                           href={link.href}
@@ -69,37 +74,40 @@ export const Footer = () => {
                           {link.label}
                         </Link>
                       </li>
-                    ),
-                )}
-              </ul>
-            </div>
-          ))}
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
 
           {/* Social Links */}
-          {footer.social?.length ? (
+          {footer.social && footer.social.length > 0 ? (
             <div>
               <h4 className="mb-4 text-sm font-semibold">Connect</h4>
               <div className="flex gap-4">
-                {footer.social.map(
-                  (link, index) =>
-                    link?.url &&
-                    link?.icon && (
-                      <Link
-                        key={`${link.icon.name ?? "icon"}-${index}`}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={link.icon.name ?? "Social link"}
-                      >
-                        <Icon
-                          data={{ ...link.icon, size: "small" }}
-                          parentColor={header.color!}
-                          theme={theme}
-                          className="text-muted-foreground hover:text-primary transition-colors"
-                        />
-                      </Link>
-                    ),
-                )}
+                {footer.social.map((link, index) => {
+                  if (!link || !link.url || !link.icon) return null;
+
+                  return (
+                    <Link
+                      key={`${link.icon.name ?? "icon"}-${index}`}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.icon.name ?? "Social link"}
+                    >
+                      <Icon
+                        parentColor={parentColor}
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                        data={{
+                          ...link.icon,
+                          size: "small", // UI-only prop
+                        }}
+                      />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           ) : null}
@@ -111,10 +119,11 @@ export const Footer = () => {
             {footer.copyright ??
               `© ${new Date().getFullYear()}, ePro Associates. All Rights Reserved`}
           </p>
+
           <p className="mt-2 md:mt-0">
             <Link href="/terms" className="hover:text-primary">
               Terms
-            </Link>{" "}
+            </Link>
             &nbsp;|&nbsp;
             <Link href="/privacy" className="hover:text-primary">
               Privacy Policy

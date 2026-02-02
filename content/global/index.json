@@ -57,7 +57,8 @@
         "title": "About",
         "links": [
           {
-            "label": "Medicare Test"
+            "label": "Medicare Test",
+            "href": "/"
           }
         ]
       },
