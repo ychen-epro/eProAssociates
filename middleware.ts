@@ -2,27 +2,34 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const defaultLocale = 'en';
-const locales = ['en']; // Add more as needed: ['en', 'es', 'fr']
+const locales = ['en', 'zh']; // Add all your locales here
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
-  // If it's exactly a locale path like /en, allow it through
-  if (locales.includes(pathname.substring(1))) {
+  // Skip posts routes - they're not locale-based
+  if (pathname.startsWith('/posts')) {
     return NextResponse.next();
   }
   
-  // Check if pathname is missing locale
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  // Check if the pathname already starts with a valid locale
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameIsMissingLocale) {
-    // Redirect to default locale
-    return NextResponse.redirect(
-      new URL(`/${defaultLocale}${pathname}`, request.url)
-    );
+  // If it already has a locale, let it through
+  if (pathnameHasLocale) {
+    // If it's exactly a locale path like /en or /zh, redirect to /locale/home
+    if (locales.some(locale => pathname === `/${locale}`)) {
+      return NextResponse.redirect(new URL(`${pathname}/home`, request.url));
+    }
+    return NextResponse.next();
   }
+
+  // If no locale, redirect to default locale
+  return NextResponse.redirect(
+    new URL(`/${defaultLocale}${pathname}`, request.url)
+  );
 }
 
 export const config = {
