@@ -1,0 +1,112 @@
+{
+  "header": {
+    "icon": {
+      "name": "BiShield",
+      "color": "blue",
+      "style": "float"
+    },
+    "logo": "/uploads/epro-logo.webp",
+    "name": "ePro Associates",
+    "color": "default",
+    "nav": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/about",
+        "label": "About"
+      },
+      {
+        "href": "/posts",
+        "label": "Blog"
+      },
+      {
+        "href": "home",
+        "label": "Services",
+        "children": [
+          {
+            "href": "https://www.healthsherpa.com/?_agent_id=derrick-zhang",
+            "label": "Medicare Plans"
+          },
+          {
+            "href": "https://www.healthsherpa.com/?_agent_id=derrick-zhang",
+            "label": "Individual Plans"
+          },
+          {
+            "href": "https://www.eproassociates.com/dental",
+            "label": "Dental Plans"
+          },
+          {
+            "href": "https://www.eproassociates.com/en/life",
+            "label": "Life Insurance"
+          },
+          {
+            "href": "https://www.eproassociates.com/allianzabc",
+            "label": "Annunities"
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "phone": "(215) 825-8435",
+    "email": "support@eproassociates.com",
+    "columns": [
+      {
+        "title": "About",
+        "links": [
+          {
+            "label": "Medicare Test",
+            "href": "/"
+          }
+        ]
+      },
+      {
+        "title": "Services",
+        "links": [
+          {
+            "label": "Test",
+            "href": "/home"
+          }
+        ]
+      }
+    ],
+    "social": [
+      {
+        "icon": {
+          "name": "FaLinkedin"
+        },
+        "url": "https://www.linkedin.com/company/tinacms"
+      },
+      {
+        "icon": {
+          "name": "FaGithub"
+        },
+        "url": "https://github.com/tinacms/tinacms"
+      },
+      {
+        "icon": {
+          "name": "FaYoutube"
+        },
+        "url": "https://www.youtube.com/@TinaCMS"
+      },
+      {
+        "icon": {
+          "name": "FaXTwitter"
+        },
+        "url": "https://x.com/TinaCMS"
+      }
+    ],
+    "copyright": "© 2026, ePro Associates. All Rights Reserved by Eproassociates.com Terms & Privacy Policy",
+    "legal": {
+      "terms": "https://www.eproassociates.com/privacy-policy",
+      "privacy": "https://www.eproassociates.com/privacy-policy"
+    }
+  },
+  "theme": {
+    "color": "blue",
+    "font": "sans",
+    "darkMode": "light"
+  }
+}

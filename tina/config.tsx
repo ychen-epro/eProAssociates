@@ -10,10 +10,9 @@ export default defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
   token: process.env.TINA_TOKEN!,
 
-  // Cloudflare Pages branch detection
   branch:
-    process.env.NEXT_PUBLIC_TINA_BRANCH || // manual override
-    process.env.CF_PAGES_BRANCH || // Cloudflare Pages
+    process.env.NEXT_PUBLIC_TINA_BRANCH ||
+    process.env.CF_PAGES_BRANCH ||
     "main",
 
   media: {
@@ -26,8 +25,6 @@ export default defineConfig({
   build: {
     publicFolder: "public",
     outputFolder: "admin",
-
-    // Avoid importing next.config.js on Cloudflare
     basePath: process.env.NEXT_PUBLIC_BASE_PATH?.replace(/^\//, "") || "",
   },
 

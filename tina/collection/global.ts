@@ -5,9 +5,15 @@ import { iconSchema } from "../fields/icon";
 const Global: Collection = {
   label: "Global",
   name: "global",
-  path: "content/global",
+  path: "content", // Root content folder
   format: "json",
-  ui: { global: true },
+  ui: {
+    global: true,
+    allowedActions: {
+      create: false,
+      delete: false,
+    },
+  },
   fields: [
     {
       type: "object",

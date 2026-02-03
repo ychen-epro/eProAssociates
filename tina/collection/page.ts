@@ -12,26 +12,36 @@ import { servicesBlockSchema } from "@/components/blocks/services";
 const Page: Collection = {
   label: "Pages",
   name: "page",
-  path: "content/pages",
+
+  // 🔁 was: content/pages
+  path: "content",
+
   format: "mdx",
+
+  match: {
+    include: "*/pages/**",
+  },
+
   ui: {
     router: ({ document }) => {
-      const filepath = document._sys.breadcrumbs.join("/");
-      if (filepath === "home") {
-        return "/";
+      // e.g. ["en", "pages", "home"]
+      const [locale, , slug] = document._sys.breadcrumbs;
+
+      if (slug === "home") {
+        return `/${locale}`;
       }
-      return `/${filepath}`;
+
+      return `/${locale}/${slug}`;
     },
   },
+
   fields: [
     {
       type: "object",
       list: true,
       name: "blocks",
       label: "Sections",
-      ui: {
-        visualSelector: true,
-      },
+      ui: { visualSelector: true },
       templates: [
         heroBlockSchema,
         calloutBlockSchema,

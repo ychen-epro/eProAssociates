@@ -6,12 +6,21 @@ import ClientPage from "./[...urlSegments]/client-page";
 export const revalidate = 300;
 
 export default async function Home() {
+  // Hardcode locale and page
+  const locale = "en";
+  const pagePath = "home"; // content/en/pages/home.mdx
+
   const data = await client.queries.page({
-    relativePath: `home.mdx`,
+    relativePath: `${locale}/pages/${pagePath}.mdx`,
   });
 
   return (
-    <Layout rawPageData={data}>
+    <Layout
+      rawPageData={{
+        ...data,
+        variables: { relativePath: `${locale}/pages/${pagePath}.mdx` },
+      }}
+    >
       <ClientPage {...data} />
     </Layout>
   );

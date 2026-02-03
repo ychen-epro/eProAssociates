@@ -3,7 +3,12 @@ import type { Collection } from "tinacms";
 const Author: Collection = {
   label: "Authors",
   name: "author",
-  path: "content/authors",
+  path: "content",
+
+  match: {
+    include: "*/authors/**",
+  },
+
   format: "md",
   fields: [
     {
