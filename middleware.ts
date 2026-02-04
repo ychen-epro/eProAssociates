@@ -7,6 +7,11 @@ const locales = ['en', 'zh']; // Add all your locales here
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
+  // Skip admin routes
+  if (pathname.startsWith('/admin')) {
+    return NextResponse.next();
+  }
+  
   // Skip posts routes - they're not locale-based
   if (pathname.startsWith('/posts')) {
     return NextResponse.next();

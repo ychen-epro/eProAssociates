@@ -17,7 +17,8 @@ const Post: Collection = {
   ui: {
     router: ({ document }) => {
       const [locale, , slug] = document._sys.breadcrumbs;
-      return `/${locale}/posts/${slug}`;
+      // Remove the duplicate /posts since the app directory already has /posts
+      return `/posts/${slug}`;
     },
   },
 

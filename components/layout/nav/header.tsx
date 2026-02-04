@@ -4,6 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { useLayout } from "../layout-context";
 import { Menu, X } from "lucide-react";
+import { LanguageSwitcher } from "./language-switcher";
+import { LocaleLink } from "./locale-link";
 
 export const Header = () => {
   const { globalSettings } = useLayout();
@@ -41,18 +43,8 @@ export const Header = () => {
                 />
               </Link>
 
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setMenuState(!menuState)}
-                aria-label={menuState ? "Close Menu" : "Open Menu"}
-                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
-              >
-                <Menu className="m-auto size-6 duration-200 data-[state=active]:scale-0 data-[state=active]:opacity-0" />
-                <X className="absolute inset-0 m-auto size-6 scale-0 opacity-0 duration-200 data-[state=active]:scale-100 data-[state=active]:opacity-100" />
-              </button>
-
               {/* Desktop Navigation */}
-              <div className="hidden lg:block">
+              <div className="hidden lg:flex lg:items-center lg:gap-8">
                 <ul className="flex gap-8 text-xl">
                   {header.nav?.map((item, index) => {
                     if (!item) return null;
@@ -64,7 +56,7 @@ export const Header = () => {
                         onMouseEnter={() => openDropdown(index)}
                         onMouseLeave={closeDropdown}
                       >
-                        <Link
+                        <LocaleLink
                           href={item.href ?? "#"}
                           className="block text-muted-foreground duration-150 hover:text-accent-foreground"
                           onClick={() =>
@@ -74,7 +66,7 @@ export const Header = () => {
                           }
                         >
                           {item.label}
-                        </Link>
+                        </LocaleLink>
 
                         {item.children && item.children.length > 0 && (
                           <div
@@ -90,13 +82,13 @@ export const Header = () => {
                               if (!child) return null;
 
                               return (
-                                <Link
+                                <LocaleLink
                                   key={idx}
                                   href={child.href ?? "#"}
                                   className="block px-4 py-2 hover:bg-muted"
                                 >
                                   {child.label}
-                                </Link>
+                                </LocaleLink>
                               );
                             })}
                           </div>
@@ -105,6 +97,26 @@ export const Header = () => {
                     );
                   })}
                 </ul>
+
+                {/* Language Switcher - Desktop */}
+                <LanguageSwitcher />
+              </div>
+
+              {/* Mobile Menu Button and Language Switcher */}
+              <div className="flex items-center gap-3 lg:hidden">
+                <LanguageSwitcher />
+
+                <button
+                  onClick={() => setMenuState(!menuState)}
+                  aria-label={menuState ? "Close Menu" : "Open Menu"}
+                  className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5"
+                >
+                  {menuState ? (
+                    <X className="size-6" />
+                  ) : (
+                    <Menu className="size-6" />
+                  )}
+                </button>
               </div>
             </div>
 
@@ -120,12 +132,13 @@ export const Header = () => {
 
                   return (
                     <li key={index}>
-                      <Link
+                      <LocaleLink
                         href={item.href ?? "#"}
                         className="block text-muted-foreground hover:text-accent-foreground"
+                        onClick={() => setMenuState(false)}
                       >
                         {item.label}
-                      </Link>
+                      </LocaleLink>
 
                       {item.children && item.children.length > 0 && (
                         <div className="mt-2 space-y-2">
@@ -133,13 +146,14 @@ export const Header = () => {
                             if (!child) return null;
 
                             return (
-                              <Link
+                              <LocaleLink
                                 key={idx}
                                 href={child.href ?? "#"}
                                 className="block pl-4 text-sm text-muted-foreground hover:text-accent-foreground"
+                                onClick={() => setMenuState(false)}
                               >
                                 {child.label}
-                              </Link>
+                              </LocaleLink>
                             );
                           })}
                         </div>
